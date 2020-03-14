@@ -1,11 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
+import ReactGA from 'react-ga';
 import { Menu } from 'semantic-ui-react';
 
 // components
 import GridHeader from './components/header/header';
 import Map from './components/map/map';
 import PlaceHolder from './components/placeholder/placeholder';
+
+const trackingId = 'UA-159899842-1';
+ReactGA.initialize(trackingId);
+ReactGA.pageview(window.location.pathname);
 
 const App = () => {
   const [cData, setData] = useState();
@@ -16,7 +21,6 @@ const App = () => {
     fetch('https://coronavirus-tracker-api.herokuapp.com/all')
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         setLatest(data.latest)
         setData(data);
         setLoading(false);
